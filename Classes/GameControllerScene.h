@@ -8,15 +8,16 @@
 #include "Level.hpp"
 #include "Swap.hpp"
 #include "Cookie.hpp"
-#include "MyScene.hpp"
+#include "GameViewScene.hpp"
 
 
-class HelloWorld : public cocos2d::Layer
+class GameControllerScene : public cocos2d::Layer
 {
 public:
+    bool playMusic = false;
     Level level;
     Swap swap;
-    MyScene *myScene;
+    GameViewScene *myScene;
 
     cocos2d::ui::ImageView* gameOverPanel;
     cocos2d::ui::Button* btnShuffle;
@@ -32,7 +33,7 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
 
     // implement the "static create()" method manually
-    CREATE_FUNC(HelloWorld);
+    CREATE_FUNC(GameControllerScene);
 
     void addSpriteForCookies(std::vector< Cookie > cookies);
     void addTiles();

@@ -31,8 +31,8 @@
 		0CCE5BC31D75C750008D389B /* Cookie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE5BC01D75C750008D389B /* Cookie.cpp */; };
 		0CCE5BC61D75C761008D389B /* Swap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE5BC41D75C761008D389B /* Swap.cpp */; };
 		0CCE5BC71D75C761008D389B /* Swap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE5BC41D75C761008D389B /* Swap.cpp */; };
-		0CCE5BCA1D75C76E008D389B /* MyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE5BC81D75C76E008D389B /* MyScene.cpp */; };
-		0CCE5BCB1D75C76E008D389B /* MyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE5BC81D75C76E008D389B /* MyScene.cpp */; };
+		0CCE5BCA1D75C76E008D389B /* GameViewScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE5BC81D75C76E008D389B /* GameViewScene.cpp */; };
+		0CCE5BCB1D75C76E008D389B /* GameViewScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE5BC81D75C76E008D389B /* GameViewScene.cpp */; };
 		0CD2F5F41D72F89600CE3900 /* lattu.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CD2F5F21D72F89600CE3900 /* lattu.png */; };
 		0CD2F5F51D72F89600CE3900 /* pinu.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CD2F5F31D72F89600CE3900 /* pinu.png */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
@@ -51,8 +51,8 @@
 		46880B8219C43A67006E1F66 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7A19C43A67006E1F66 /* HelloWorld.png */; };
 		46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
 		46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
-		46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */; };
-		46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */; };
+		46880B8A19C43A87006E1F66 /* GameControllerScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* GameControllerScene.cpp */; };
+		46880B8B19C43A87006E1F66 /* GameControllerScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* GameControllerScene.cpp */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
 		503AE10117EB989F00D1A890 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FC17EB989F00D1A890 /* main.m */; };
@@ -155,8 +155,8 @@
 		0CCE5BC11D75C750008D389B /* Cookie.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Cookie.hpp; sourceTree = "<group>"; };
 		0CCE5BC41D75C761008D389B /* Swap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Swap.cpp; sourceTree = "<group>"; };
 		0CCE5BC51D75C761008D389B /* Swap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Swap.hpp; sourceTree = "<group>"; };
-		0CCE5BC81D75C76E008D389B /* MyScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MyScene.cpp; sourceTree = "<group>"; };
-		0CCE5BC91D75C76E008D389B /* MyScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MyScene.hpp; sourceTree = "<group>"; };
+		0CCE5BC81D75C76E008D389B /* GameViewScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameViewScene.cpp; sourceTree = "<group>"; };
+		0CCE5BC91D75C76E008D389B /* GameViewScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameViewScene.hpp; sourceTree = "<group>"; };
 		0CD2F5F21D72F89600CE3900 /* lattu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lattu.png; sourceTree = "<group>"; };
 		0CD2F5F31D72F89600CE3900 /* pinu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinu.png; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
@@ -172,8 +172,8 @@
 		46880B7A19C43A67006E1F66 /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HelloWorld.png; sourceTree = "<group>"; };
 		46880B8419C43A87006E1F66 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		46880B8519C43A87006E1F66 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelloWorldScene.cpp; sourceTree = "<group>"; };
-		46880B8719C43A87006E1F66 /* HelloWorldScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorldScene.h; sourceTree = "<group>"; };
+		46880B8619C43A87006E1F66 /* GameControllerScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameControllerScene.cpp; sourceTree = "<group>"; };
+		46880B8719C43A87006E1F66 /* GameControllerScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameControllerScene.h; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE0FA17EB989F00D1A890 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -367,8 +367,8 @@
 			children = (
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
-				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
-				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
+				46880B8619C43A87006E1F66 /* GameControllerScene.cpp */,
+				46880B8719C43A87006E1F66 /* GameControllerScene.h */,
 				0CCE5BB81D75C6E6008D389B /* Tile.cpp */,
 				0CCE5BB91D75C6E6008D389B /* Tile.hpp */,
 				0CCE5BBC1D75C742008D389B /* Level.cpp */,
@@ -377,8 +377,8 @@
 				0CCE5BC11D75C750008D389B /* Cookie.hpp */,
 				0CCE5BC41D75C761008D389B /* Swap.cpp */,
 				0CCE5BC51D75C761008D389B /* Swap.hpp */,
-				0CCE5BC81D75C76E008D389B /* MyScene.cpp */,
-				0CCE5BC91D75C76E008D389B /* MyScene.hpp */,
+				0CCE5BC81D75C76E008D389B /* GameViewScene.cpp */,
+				0CCE5BC91D75C76E008D389B /* GameViewScene.hpp */,
 				0C79D75F1D85989500C21F97 /* Chain.cpp */,
 				0C79D7601D85989500C21F97 /* Chain.hpp */,
 			);
@@ -600,9 +600,9 @@
 				0CCE5BC61D75C761008D389B /* Swap.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				0C79D7611D85989500C21F97 /* Chain.cpp in Sources */,
-				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
+				46880B8A19C43A87006E1F66 /* GameControllerScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
-				0CCE5BCA1D75C76E008D389B /* MyScene.cpp in Sources */,
+				0CCE5BCA1D75C76E008D389B /* GameViewScene.cpp in Sources */,
 				0CCE5BBE1D75C742008D389B /* Level.cpp in Sources */,
 				0CCE5BBA1D75C6E6008D389B /* Tile.cpp in Sources */,
 				0CCE5BC21D75C750008D389B /* Cookie.cpp in Sources */,
@@ -615,12 +615,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CCE5BCB1D75C76E008D389B /* MyScene.cpp in Sources */,
+				0CCE5BCB1D75C76E008D389B /* GameViewScene.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				0CCE5BBF1D75C742008D389B /* Level.cpp in Sources */,
 				0CCE5BC71D75C761008D389B /* Swap.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
-				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
+				46880B8B19C43A87006E1F66 /* GameControllerScene.cpp in Sources */,
 				0CCE5BBB1D75C6E6008D389B /* Tile.cpp in Sources */,
 				0C79D7621D85989600C21F97 /* Chain.cpp in Sources */,
 				0CCE5BC31D75C750008D389B /* Cookie.cpp in Sources */,

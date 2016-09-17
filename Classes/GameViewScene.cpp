@@ -1,23 +1,23 @@
 //
-//  MyScene.cpp
+//  GameViewScene.cpp
 //  Kolkakoli
 //
 //  Created by Liam Magee on 30/08/2016.
 //
 //
 
-#include "MyScene.hpp"
+#include "GameViewScene.hpp"
 #include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
-Scene* MyScene::createScene()
+Scene* GameViewScene::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::create();
     
     // 'layer' is an autorelease object
-    auto layer = MyScene::create();
+    auto layer = GameViewScene::create();
     
     // add layer as a child to scene
     scene->addChild(layer);
@@ -27,7 +27,7 @@ Scene* MyScene::createScene()
 }
 
 // on "init" you need to initialize your instance
-bool MyScene::init()
+bool GameViewScene::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -48,7 +48,7 @@ bool MyScene::init()
     auto closeItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
-                                           CC_CALLBACK_1(MyScene::menuCloseCallback, this));
+                                           CC_CALLBACK_1(GameViewScene::menuCloseCallback, this));
     
     closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
                                 origin.y + closeItem->getContentSize().height/2));
@@ -111,26 +111,17 @@ bool MyScene::init()
     this->addChild(scoreLabel, 1);
     
     // add "HelloWorld" splash screen"
-    auto spriteLattu = Sprite::create("lattu.png");
-    auto spritePinu = Sprite::create("pinu.png");
+    //auto spriteLattu = Sprite::create("lattu.png");
+    //auto spritePinu = Sprite::create("pinu.png");
     
     // position the sprite on the center of the screen
     //    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-    spriteLattu->setPosition(Vec2(visibleSize.width/4 + origin.x, visibleSize.height/2 + origin.y));
-    spritePinu->setPosition(Vec2(visibleSize.width/4*3 + origin.x, visibleSize.height/2 + origin.y));
+    //spriteLattu->setPosition(Vec2(visibleSize.width/4 + origin.x, visibleSize.height/2 + origin.y));
+    //spritePinu->setPosition(Vec2(visibleSize.width/4*3 + origin.x, visibleSize.height/2 + origin.y));
     
     // add the sprite as a child to this layer
     //this->addChild(spriteLattu, 0);
     //this->addChild(spritePinu, 1); // In case they overlap
-    
-    // add "HelloWorld" splash screen"
-    //auto sprite = Sprite::create("HelloWorld.png");
-    
-    // position the sprite on the center of the screen
-    //sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-    
-    // add the sprite as a child to this layer
-    //this->addChild(sprite, 0);
     
     auto sprite = Sprite::create("Images/Background-hd.png");
     //sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
@@ -166,20 +157,18 @@ bool MyScene::init()
     cookiesLayer->setPosition(layerPosition);
     cropLayer->addChild(cookiesLayer);
     
-    
     preloadResources();
-    
     
     return true;
 }
 
 
-void MyScene::preloadResources() {
+void GameViewScene::preloadResources() {
 
 }
 
 
-void MyScene::menuCloseCallback(Ref* pSender)
+void GameViewScene::menuCloseCallback(Ref* pSender)
 {
     //Close the cocos2d-x game scene and quit the application
     Director::getInstance()->end();
@@ -196,7 +185,7 @@ void MyScene::menuCloseCallback(Ref* pSender)
     
 }
 
-bool MyScene::convertPoint(Vec2 point, int* col, int* row) {
+bool GameViewScene::convertPoint(Vec2 point, int* col, int* row) {
     if (point.x >= 0 && point.x < Level::NumColumns*TileWidth &&
         point.y >= 0 && point.y < Level::NumRows*TileHeight) {
         *col = (int)(point.x / TileWidth);
@@ -210,7 +199,7 @@ bool MyScene::convertPoint(Vec2 point, int* col, int* row) {
     }
 }
 
-void MyScene::showSelectionIndicatorForCookie(Cookie* cookie) {
+void GameViewScene::showSelectionIndicatorForCookie(Cookie* cookie) {
     if (selectionSprite->getParent() != nullptr) {
         selectionSprite->removeFromParent();
     }
@@ -220,7 +209,7 @@ void MyScene::showSelectionIndicatorForCookie(Cookie* cookie) {
     selectionSprite->setOpacity(255);
     cookie->sprite->addChild(selectionSprite);
 }
-void MyScene::trySwapHorizontal(int horzDelta, int vertDelta) {
+void GameViewScene::trySwapHorizontal(int horzDelta, int vertDelta) {
     int toColumn = swipeFromColumn + horzDelta;
     int toRow = swipeFromRow + vertDelta;
      
@@ -239,7 +228,7 @@ void MyScene::trySwapHorizontal(int horzDelta, int vertDelta) {
         swapHandler(swap);
     }
 }
-void MyScene::addSpriteForCookies(std::vector< Cookie* > cookies) {
+void GameViewScene::addSpriteForCookies(std::vector< Cookie* > cookies) {
         //Create a "one by one" touch event listener (processes one touch at a time)
         auto listener1 = EventListenerTouchOneByOne::create();
         // When "swallow touches" is true, then returning 'true' from the onTouchBegan method will "swallow" the touch event, preventing other listeners from using it.
@@ -344,11 +333,11 @@ void MyScene::addSpriteForCookies(std::vector< Cookie* > cookies) {
     this->addChild(selectionSprite);
 }
 
-cocos2d::Point MyScene::pointForColumn(int col, int row) {
+cocos2d::Point GameViewScene::pointForColumn(int col, int row) {
     Point p = Point(col * TileWidth + TileWidth / 2,row * TileHeight + TileHeight / 2);
     return p;
 }
-void MyScene::addTiles() {
+void GameViewScene::addTiles() {
     for (int i = 0; i < Level::NumRows; i++) {
         for (int j = 0; j < Level::NumColumns; j++) {
             if (level->tileAtColumn(j, i) != NULL) {
@@ -381,7 +370,7 @@ void MyScene::addTiles() {
         }
     }
 }
-void MyScene::animateSwap(Swap* swap, std::function< void ()>* block){
+void GameViewScene::animateSwap(Swap* swap, std::function< void ()>* block){
     swap->cookieA->sprite->setLocalZOrder(100);
     swap->cookieB->sprite->setLocalZOrder(90);
  
@@ -398,13 +387,15 @@ void MyScene::animateSwap(Swap* swap, std::function< void ()>* block){
     swap->cookieB->sprite->runAction(seqB);
     
 
-    std::function<void()> ssF = [](){
-        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Chomp.wav");
+    std::function<void()> ssF = [this](){
+        if (this->playSounds) {
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Chomp.wav");
+        }
     };
     auto cb = CallFunc::create(ssF);
     this->runAction(cb);
 }
-void MyScene::animateInvalidSwap(Swap* swap) {
+void GameViewScene::animateInvalidSwap(Swap* swap) {
     swap->cookieA->sprite->setLocalZOrder(100);
     swap->cookieB->sprite->setLocalZOrder(90);
     
@@ -423,13 +414,15 @@ void MyScene::animateInvalidSwap(Swap* swap) {
     auto seqB = Sequence::create(moveBEaseOut, moveBackBEaseOut, nullptr);
     swap->cookieB->sprite->runAction(seqB);
     
-    std::function<void()> ssF = [](){
-        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Error.wav");
+    std::function<void()> ssF = [this](){
+        if (this->playSounds) {
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Error.wav");
+        }
     };
     auto cb = CallFunc::create(ssF);
     this->runAction(cb);
 }
-void MyScene::hideSelectionIndicator() {
+void GameViewScene::hideSelectionIndicator() {
     const float duration = 0.3;
     auto fadeOut = FadeOut::create(duration);
     //selectionSprite->removeFromParent();
@@ -438,7 +431,7 @@ void MyScene::hideSelectionIndicator() {
     auto seq = Sequence::create(fadeOut, nullptr);
     selectionSprite->runAction(seq);
 }
-void MyScene::animateMatchedCookies(std::vector< Chain* > chains, std::function< void ()>* block) {
+void GameViewScene::animateMatchedCookies(std::vector< Chain* > chains, std::function< void ()>* block) {
     for (Chain* chain : chains) {
         animateScoreForCookies(chain);
         for (Cookie* cookie : chain->cookies) {
@@ -454,8 +447,10 @@ void MyScene::animateMatchedCookies(std::vector< Chain* > chains, std::function<
         }
     }
     // Play sound
-    std::function<void()> ssF = [](){
-        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Ka-Ching.wav");
+    std::function<void()> ssF = [this](){
+        if (this->playSounds) {
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Ka-Ching.wav");
+        }
     };
     auto cb = CallFunc::create(ssF);
     this->runAction(cb);
@@ -464,7 +459,7 @@ void MyScene::animateMatchedCookies(std::vector< Chain* > chains, std::function<
     auto seq = Sequence::create(fun, nullptr);
     this->runAction(seq);
 }
-void MyScene::animateFallingCookies(std::vector< std::vector< Cookie* > > cookies, std::function< void ()>* block) {
+void GameViewScene::animateFallingCookies(std::vector< std::vector< Cookie* > > cookies, std::function< void ()>* block) {
     float longestDuration = 0;
     int counter = 0;
     for (std::vector< Cookie* > row : cookies) {
@@ -479,8 +474,11 @@ void MyScene::animateFallingCookies(std::vector< std::vector< Cookie* > > cookie
             
             auto waitAction = DelayTime::create(delay);
             auto moveAction = MoveTo::create(duration, p);
-            std::function<void()> ssF = [](){
-                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Scrape.wav");
+            
+            std::function<void()> ssF = [this](){
+                if (this->playSounds) {
+                    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Scrape.wav");
+                }
             };
             auto cb = CallFunc::create(ssF);
             auto group = Spawn::createWithTwoActions(moveAction, cb);
@@ -495,7 +493,7 @@ void MyScene::animateFallingCookies(std::vector< std::vector< Cookie* > > cookie
     auto seq = Sequence::create(waitAction2, fun, nullptr);
     this->runAction(seq);
 }
-void MyScene::animateNewCookies(std::vector< std::vector< Cookie* > > cookies, std::function< void ()>* block) {
+void GameViewScene::animateNewCookies(std::vector< std::vector< Cookie* > > cookies, std::function< void ()>* block) {
     float longestDuration = 0;
     int colCounter = 0;
     for (std::vector< Cookie* > row : cookies) {
@@ -519,8 +517,10 @@ void MyScene::animateNewCookies(std::vector< std::vector< Cookie* > > cookies, s
             auto waitAction = DelayTime::create(delay);
             auto moveAction = MoveTo::create(duration, p);
             auto fadeInAction = FadeIn::create(0.05);
-            std::function<void()> ssF = [](){
-                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Drip.wav");
+            std::function<void()> ssF = [this](){
+                if (this->playSounds) {
+                    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Drip.wav");
+                }
             };
             auto cb = CallFunc::create(ssF);
             auto group = Spawn::create(fadeInAction, moveAction, cb, nullptr);
@@ -536,7 +536,7 @@ void MyScene::animateNewCookies(std::vector< std::vector< Cookie* > > cookies, s
     auto seq = Sequence::create(waitAction2, fun, nullptr);
     this->runAction(seq);
 }
-void MyScene::animateScoreForCookies(Chain* chain) {
+void GameViewScene::animateScoreForCookies(Chain* chain) {
     Cookie* firstCookie = chain->cookies[0];
     Cookie* lastCookie = chain->cookies[chain->cookies.size() - 1];
         Point p = Vec2((firstCookie->sprite->getPositionX() + lastCookie->sprite->getPositionX()) / 2,
@@ -555,20 +555,20 @@ void MyScene::animateScoreForCookies(Chain* chain) {
         auto seq = Sequence::createWithTwoActions(easeOutAction, CallFunc::create(f));
         label->runAction(seq);
 }
-void MyScene::updateLabels() {
+void GameViewScene::updateLabels() {
     targetLabel->setString(std::to_string((long)level->targetScore));
     movesLabel->setString(std::to_string((long)movesLeft));
     scoreLabel->setString(std::to_string((long)score));
 }
-void MyScene::removeAllCookieSprites() {
+void GameViewScene::removeAllCookieSprites() {
     cookiesLayer->removeAllChildren();
 }
-void MyScene::animateGameOver() {
+void GameViewScene::animateGameOver() {
     auto moveBy = MoveBy::create(0.3, Vec2(0, -this->getPositionY()));
     auto easeIn = EaseIn::create(moveBy, 1.0);
     gameLayer->runAction(easeIn);
 }
-void MyScene::animateBeginGame() {
+void GameViewScene::animateBeginGame() {
     gameLayer->setVisible(true);
 
     auto visibleSize = Director::getInstance()->getVisibleSize();

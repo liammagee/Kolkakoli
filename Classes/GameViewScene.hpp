@@ -19,7 +19,7 @@
 #include "Cookie.hpp"
 
 
-class MyScene : public cocos2d::Layer {
+class GameViewScene : public cocos2d::Layer {
 public:
     static constexpr float TileWidth = 32.0f;
     static constexpr float TileHeight = 36.0f;
@@ -47,6 +47,7 @@ public:
     
     int swipeFromColumn = -1;
     int swipeFromRow = -1;
+    bool playSounds = false;
     
     std::function<void(Swap*)> swapHandler;
 
@@ -66,7 +67,7 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
     
     // implement the "static create()" method manually
-    CREATE_FUNC(MyScene);
+    CREATE_FUNC(GameViewScene);
 
     void preloadResources();
 

@@ -1,15 +1,15 @@
-#include "HelloWorldScene.h"
+#include "GameControllerScene.h"
 #include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
-Scene* HelloWorld::createScene()
+Scene* GameControllerScene::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::create();
     
     // 'layer' is an autorelease object
-    auto layer = HelloWorld::create();
+    auto layer = GameControllerScene::create();
 
     // add layer as a child to scene
     scene->addChild(layer);
@@ -19,7 +19,7 @@ Scene* HelloWorld::createScene()
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool GameControllerScene::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -70,7 +70,7 @@ bool HelloWorld::init()
 
     
     // Initialise actual swap scene
-    myScene = MyScene::create();
+    myScene = GameViewScene::create();
     myScene->level = level;
     myScene->addTiles();
     
@@ -96,18 +96,21 @@ bool HelloWorld::init()
     this->addChild(myScene);
     
     // Play music
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(
-                                                                          "Sounds/Mining by Moonlight.mp3", true);
+    if (this->playMusic) {
+        CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+                                                                             "Sounds/Mining by Moonlight.mp3", true);
+    }
+
     
     return true;
 }
 
-void HelloWorld::beginNextTurn() {
+void GameControllerScene::beginNextTurn() {
     myScene->level->detectPossibleSwaps();
     Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
     decrementMoves();
 }
-void HelloWorld::handleMatches() {
+void GameControllerScene::handleMatches() {
     std::vector< Chain*> chains = this->myScene->level->removeMatches();
     if (chains.size() == 0) {
         beginNextTurn();
@@ -131,7 +134,7 @@ void HelloWorld::handleMatches() {
     myScene->animateMatchedCookies(chains, &postMatch);
 }
 
-void HelloWorld::beginGame() {
+void GameControllerScene::beginGame() {
     myScene->animateBeginGame();
     myScene->movesLeft = myScene->level->maximumMoves;
     myScene->score = 0;
@@ -139,13 +142,13 @@ void HelloWorld::beginGame() {
     this->shuffle();
 }
 
-void HelloWorld::shuffle() {
+void GameControllerScene::shuffle() {
     myScene->removeAllCookieSprites();
     std::vector< Cookie* > cookies = myScene->level->shuffle();
     myScene->addSpriteForCookies(cookies);
 }
 
-void HelloWorld::menuCloseCallback(Ref* pSender)
+void GameControllerScene::menuCloseCallback(Ref* pSender)
 {
     //Close the cocos2d-x game scene and quit the application
     Director::getInstance()->end();
@@ -162,7 +165,7 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
     
 }
 
-void HelloWorld::decrementMoves() {
+void GameControllerScene::decrementMoves() {
     myScene->movesLeft--;
     myScene->updateLabels();
     if (myScene->score >= myScene->level->targetScore) {
@@ -175,7 +178,7 @@ void HelloWorld::decrementMoves() {
     }
 }
 
-void HelloWorld::showGameOver() {
+void GameControllerScene::showGameOver() {
     myScene->animateGameOver();
     gameOverPanel->setVisible(true);
     btnShuffle->setVisible(false);
@@ -193,7 +196,7 @@ void HelloWorld::showGameOver() {
     };
     _eventDispatcher->addEventListenerWithSceneGraphPriority(gameOverListener, gameOverPanel);
 }
-void HelloWorld::hideGameOver() {
+void GameControllerScene::hideGameOver() {
     _eventDispatcher->removeEventListener(gameOverListener);
     gameOverListener = NULL;
     gameOverPanel->setVisible(false);
