@@ -49,7 +49,7 @@ public:
     int swipeFromRow = -1;
     
     std::function<void(Swap*)> swapHandler;
-    
+
     
     cocos2d::Point pointForColumn(int col, int row);
     bool convertPoint(cocos2d::Vec2 point, int* col, int* row);

@@ -175,7 +175,7 @@ bool MyScene::init()
 
 
 void MyScene::preloadResources() {
-    
+
 }
 
 
@@ -385,7 +385,6 @@ void MyScene::animateSwap(Swap* swap, std::function< void ()>* block){
     swap->cookieA->sprite->setLocalZOrder(100);
     swap->cookieB->sprite->setLocalZOrder(90);
  
-    //CallFunc::create();
     const float duration = 0.3;
     auto moveToB = MoveTo::create(duration, swap->cookieB->sprite->getPosition());
     auto moveAEaseOut = EaseOut::create(moveToB, 1.0);
@@ -397,7 +396,13 @@ void MyScene::animateSwap(Swap* swap, std::function< void ()>* block){
     auto funcB = CallFunc::create(*block);
     auto seqB = Sequence::create(moveBEaseOut, funcB, nullptr);
     swap->cookieB->sprite->runAction(seqB);
-    //CallFunc::create();
+    
+
+    std::function<void()> ssF = [](){
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Chomp.wav");
+    };
+    auto cb = CallFunc::create(ssF);
+    this->runAction(cb);
 }
 void MyScene::animateInvalidSwap(Swap* swap) {
     swap->cookieA->sprite->setLocalZOrder(100);
@@ -417,6 +422,12 @@ void MyScene::animateInvalidSwap(Swap* swap) {
     auto moveBackBEaseOut = EaseOut::create(moveBackB, 1.0);
     auto seqB = Sequence::create(moveBEaseOut, moveBackBEaseOut, nullptr);
     swap->cookieB->sprite->runAction(seqB);
+    
+    std::function<void()> ssF = [](){
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Error.wav");
+    };
+    auto cb = CallFunc::create(ssF);
+    this->runAction(cb);
 }
 void MyScene::hideSelectionIndicator() {
     const float duration = 0.3;
@@ -443,6 +454,11 @@ void MyScene::animateMatchedCookies(std::vector< Chain* > chains, std::function<
         }
     }
     // Play sound
+    std::function<void()> ssF = [](){
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Ka-Ching.wav");
+    };
+    auto cb = CallFunc::create(ssF);
+    this->runAction(cb);
     // Run block to continue
     auto fun = CallFunc::create(*block);
     auto seq = Sequence::create(fun, nullptr);
@@ -463,7 +479,12 @@ void MyScene::animateFallingCookies(std::vector< std::vector< Cookie* > > cookie
             
             auto waitAction = DelayTime::create(delay);
             auto moveAction = MoveTo::create(duration, p);
-            auto seq = Sequence::create(waitAction, moveAction, nullptr);
+            std::function<void()> ssF = [](){
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Scrape.wav");
+            };
+            auto cb = CallFunc::create(ssF);
+            auto group = Spawn::createWithTwoActions(moveAction, cb);
+            auto seq = Sequence::create(waitAction, group, nullptr);
             cookie->sprite->runAction(seq);
         }
         counter++;
@@ -498,7 +519,11 @@ void MyScene::animateNewCookies(std::vector< std::vector< Cookie* > > cookies, s
             auto waitAction = DelayTime::create(delay);
             auto moveAction = MoveTo::create(duration, p);
             auto fadeInAction = FadeIn::create(0.05);
-            auto group = Spawn::createWithTwoActions(fadeInAction, moveAction);
+            std::function<void()> ssF = [](){
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Drip.wav");
+            };
+            auto cb = CallFunc::create(ssF);
+            auto group = Spawn::create(fadeInAction, moveAction, cb, nullptr);
             auto seq = Sequence::create(waitAction, group, nullptr);
             cookie->sprite->runAction(seq);
             rowCounter++;
@@ -545,10 +570,12 @@ void MyScene::animateGameOver() {
 }
 void MyScene::animateBeginGame() {
     gameLayer->setVisible(true);
-    /*
-    gameLayer->setPosition(Vec2(0, this->getPositionY()));
-    auto moveBy = MoveBy::create(0.3, Vec2(0, -this->getPositionY()));
-    auto easeIn = EaseIn::create(moveBy, 1.0);
+
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+    gameLayer->setPosition(Vec2(visibleSize.width/2 + origin.x, -(visibleSize.height/2 + origin.y)));
+    auto moveTo = MoveTo::create(0.3, Vec2(visibleSize.width/2 + origin.x, (visibleSize.height/2 + origin.y)));
+    auto easeIn = EaseIn::create(moveTo, 1.0);
     gameLayer->runAction(easeIn);
-     */
 }

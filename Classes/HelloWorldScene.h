@@ -3,11 +3,13 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include "SimpleAudioEngine.h"
 
 #include "Level.hpp"
 #include "Swap.hpp"
 #include "Cookie.hpp"
 #include "MyScene.hpp"
+
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -19,6 +21,8 @@ public:
     cocos2d::ui::ImageView* gameOverPanel;
     cocos2d::ui::Button* btnShuffle;
     cocos2d::EventListenerTouchOneByOne* gameOverListener;
+    
+    
 
     static cocos2d::Scene* createScene();
 

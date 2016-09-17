@@ -95,6 +95,10 @@ bool HelloWorld::init()
     this->beginGame();
     this->addChild(myScene);
     
+    // Play music
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(
+                                                                          "Sounds/Mining by Moonlight.mp3", true);
+    
     return true;
 }
 
