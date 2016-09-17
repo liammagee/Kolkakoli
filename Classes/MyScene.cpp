@@ -140,10 +140,12 @@ bool MyScene::init()
     this->addChild(sprite, 0);
     
     selectionSprite = Sprite::create("Images/Background-hd.png");
+    selectionSprite->retain();
     selectionSprite->setOpacity(0);
     this->addChild(selectionSprite);
     
     gameLayer = new cocos2d::Node();
+    gameLayer->setVisible(false);
     gameLayer->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     this->addChild(gameLayer, 0);
 
@@ -153,9 +155,16 @@ bool MyScene::init()
     tilesLayer->setPosition(layerPosition);
     gameLayer->addChild(tilesLayer);
     
+    cropLayer = new cocos2d::ClippingNode();
+    gameLayer->addChild(cropLayer);
+    
+    maskLayer = new cocos2d::Node();
+    maskLayer->setPosition(layerPosition);
+    cropLayer->setStencil(maskLayer);
+    
     cookiesLayer = new cocos2d::Node();
     cookiesLayer->setPosition(layerPosition);
-    gameLayer->addChild(cookiesLayer);
+    cropLayer->addChild(cookiesLayer);
     
     
     preloadResources();
@@ -202,7 +211,7 @@ bool MyScene::convertPoint(Vec2 point, int* col, int* row) {
 }
 
 void MyScene::showSelectionIndicatorForCookie(Cookie* cookie) {
-    if (selectionSprite->getParent()) {
+    if (selectionSprite->getParent() != nullptr) {
         selectionSprite->removeFromParent();
     }
     auto sprite = Sprite::create(cookie->highlightedSpriteName());
@@ -250,7 +259,6 @@ void MyScene::addSpriteForCookies(std::vector< Cookie* > cookies) {
             //Check the click area
             if (rect.containsPoint(locationInNode))
             {
-                log("sprite began... x = %f, y = %f", locationInNode.x, locationInNode.y);
                 target->setOpacity(180);
                 
                 // Detect the column and row of the cookie
@@ -316,12 +324,24 @@ void MyScene::addSpriteForCookies(std::vector< Cookie* > cookies) {
 
     for (Cookie* cookie : cookies) {
         auto sprite = Sprite::create(cookie->spriteName());
+        sprite->retain();
         sprite->setPosition(pointForColumn(cookie->col, cookie->row));
         cookiesLayer->addChild(sprite);
         cookie->sprite = sprite;
-        //_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1->clone(), sprite);
+        cookie->sprite->setOpacity(0);
+        cookie->sprite->setScaleX(0.5);
+        cookie->sprite->setScaleX(0.5);
+        auto waitFor = DelayTime::create(0.25 + rand_0_1() * 0.25);
+        auto group = Spawn::createWithTwoActions(FadeIn::create(0.25), ScaleTo::create(0.25, 1.0));
+        auto runAction = Sequence::create(waitFor, group, nullptr);
+        cookie->sprite->runAction(runAction);
     }
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
+    // Prevent illegal access to a garbage-collected sprite
+    selectionSprite = Sprite::create("Images/Background-hd.png");
+    selectionSprite->retain();
+    selectionSprite->setOpacity(0);
+    this->addChild(selectionSprite);
 }
 
 cocos2d::Point MyScene::pointForColumn(int col, int row) {
@@ -332,8 +352,30 @@ void MyScene::addTiles() {
     for (int i = 0; i < Level::NumRows; i++) {
         for (int j = 0; j < Level::NumColumns; j++) {
             if (level->tileAtColumn(j, i) != NULL) {
-                auto tile = Sprite::create("Sprites/Tile.png");
+                //auto tile = Sprite::create("Sprites/Tile.png");
+                auto tile = Sprite::create("Grid/MaskTile.png");
                 tile->setPosition(pointForColumn(j, i));
+                //tilesLayer->addChild(tile);
+                maskLayer->addChild(tile);
+            }
+        }
+    }
+    
+    for (int i = 0; i <= Level::NumRows; i++) {
+        for (int j = 0; j <= Level::NumColumns; j++) {
+            bool topLeft = (j > 0) && (i < Level::NumRows) && (level->tileAtColumn(j - 1, i) != NULL);
+            bool bottomLeft = (j > 0) && (i > 0) && (level->tileAtColumn(j - 1, i - 1) != NULL);
+            bool topRight = (j < Level::NumColumns) && (i < Level::NumRows) && (level->tileAtColumn(j, i) != NULL);
+            bool bottomRight = (j < Level::NumColumns) && (i > 0) && (level->tileAtColumn(j, i - 1) != NULL);
+            int value = topLeft | topRight << 1 | bottomLeft << 2 | bottomRight << 3;
+            
+            if (value != 0 && value != 6 && value != 9) {
+                std::string fileName = "Grid/Tile_" + std::to_string(value) + ".png";
+                auto tile = Sprite::create(fileName);
+                Point p = Vec2(pointForColumn(j, i));
+                p.x -= TileWidth / 2;
+                p.y -= TileHeight / 2;
+                tile->setPosition(p);
                 tilesLayer->addChild(tile);
             }
         }
@@ -387,6 +429,7 @@ void MyScene::hideSelectionIndicator() {
 }
 void MyScene::animateMatchedCookies(std::vector< Chain* > chains, std::function< void ()>* block) {
     for (Chain* chain : chains) {
+        animateScoreForCookies(chain);
         for (Cookie* cookie : chain->cookies) {
             if (cookie->sprite != NULL) {
                 auto scaleAction = ScaleTo::create(0.3, 0.0);
@@ -395,7 +438,7 @@ void MyScene::animateMatchedCookies(std::vector< Chain* > chains, std::function<
                 cookie->sprite->runAction(seq);
                 cookie->sprite->setOpacity(0);
                 //cookie->sprite->removeFromParent();
-                cookie->sprite = NULL;
+                //cookie->sprite = NULL;
             }
         }
     }
@@ -468,6 +511,25 @@ void MyScene::animateNewCookies(std::vector< std::vector< Cookie* > > cookies, s
     auto seq = Sequence::create(waitAction2, fun, nullptr);
     this->runAction(seq);
 }
+void MyScene::animateScoreForCookies(Chain* chain) {
+    Cookie* firstCookie = chain->cookies[0];
+    Cookie* lastCookie = chain->cookies[chain->cookies.size() - 1];
+        Point p = Vec2((firstCookie->sprite->getPositionX() + lastCookie->sprite->getPositionX()) / 2,
+                       (firstCookie->sprite->getPositionY() + lastCookie->sprite->getPositionY()) / 2  - 8);
+        cocos2d::Label* label = cocos2d::Label::createWithTTF( std::to_string(chain->score), "fonts/Marker Felt.ttf", 20);
+        label->setColor(Color3B::WHITE);
+        label->setPosition(p);
+        label->setGlobalZOrder(300);
+        cookiesLayer->addChild(label, 1);
+        
+        auto moveAction = MoveBy::create(0.7, Vec2(0, 20));
+        auto easeOutAction = EaseOut::create(moveAction, 1.0);
+        std::function<void ()> f = [label](){
+            label->removeFromParent();
+        };
+        auto seq = Sequence::createWithTwoActions(easeOutAction, CallFunc::create(f));
+        label->runAction(seq);
+}
 void MyScene::updateLabels() {
     targetLabel->setString(std::to_string((long)level->targetScore));
     movesLabel->setString(std::to_string((long)movesLeft));
@@ -475,4 +537,18 @@ void MyScene::updateLabels() {
 }
 void MyScene::removeAllCookieSprites() {
     cookiesLayer->removeAllChildren();
+}
+void MyScene::animateGameOver() {
+    auto moveBy = MoveBy::create(0.3, Vec2(0, -this->getPositionY()));
+    auto easeIn = EaseIn::create(moveBy, 1.0);
+    gameLayer->runAction(easeIn);
+}
+void MyScene::animateBeginGame() {
+    gameLayer->setVisible(true);
+    /*
+    gameLayer->setPosition(Vec2(0, this->getPositionY()));
+    auto moveBy = MoveBy::create(0.3, Vec2(0, -this->getPositionY()));
+    auto easeIn = EaseIn::create(moveBy, 1.0);
+    gameLayer->runAction(easeIn);
+     */
 }

@@ -128,6 +128,7 @@ void HelloWorld::handleMatches() {
 }
 
 void HelloWorld::beginGame() {
+    myScene->animateBeginGame();
     myScene->movesLeft = myScene->level->maximumMoves;
     myScene->score = 0;
     myScene->updateLabels();
@@ -171,6 +172,7 @@ void HelloWorld::decrementMoves() {
 }
 
 void HelloWorld::showGameOver() {
+    myScene->animateGameOver();
     gameOverPanel->setVisible(true);
     btnShuffle->setVisible(false);
     Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this->myScene);

@@ -15,21 +15,21 @@ public:
     Level level;
     Swap swap;
     MyScene *myScene;
-    
+
     cocos2d::ui::ImageView* gameOverPanel;
     cocos2d::ui::Button* btnShuffle;
     cocos2d::EventListenerTouchOneByOne* gameOverListener;
-    
+
     static cocos2d::Scene* createScene();
 
     virtual bool init();
-    
+
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
-    
+
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
-    
+
     void addSpriteForCookies(std::vector< Cookie > cookies);
     void addTiles();
     void animateSwap(Swap swap);

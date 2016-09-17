@@ -31,6 +31,9 @@ public:
     cocos2d::Node *tilesLayer;
     cocos2d::Sprite *selectionSprite;
     
+    cocos2d::ClippingNode* cropLayer;
+    cocos2d::Node* maskLayer;
+
 
     int movesLeft;
     int score;
@@ -74,8 +77,12 @@ public:
     void animateMatchedCookies(std::vector< Chain* > chains, std::function< void ()>* block);
     void animateFallingCookies(std::vector< std::vector< Cookie* > > cookies, std::function< void ()>* block);
     void animateNewCookies(std::vector< std::vector< Cookie* > > cookies, std::function< void ()>* block);
+    void animateScoreForCookies(Chain* chain);
     void updateLabels();
     void removeAllCookieSprites();
+    
+    void animateGameOver();
+    void animateBeginGame();
 };
 
 
