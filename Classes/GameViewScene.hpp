@@ -10,6 +10,7 @@
 #define MyScene_hpp
 
 #include <stdio.h>
+#include <string.h>
 #include <iostream>
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
@@ -47,7 +48,7 @@ public:
     
     int swipeFromColumn = -1;
     int swipeFromRow = -1;
-    bool playSounds = false;
+    bool playSounds = true;
     
     std::function<void(Swap*)> swapHandler;
 

@@ -9,6 +9,7 @@
 #ifndef Cookie_hpp
 #define Cookie_hpp
 
+#include "cocos2d.h"
 #include <stdio.h>
 
 class Cookie {

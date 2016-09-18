@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C7811B71D8DF58C00AB7682 /* LoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7811B51D8DF58C00AB7682 /* LoadingScene.cpp */; };
+		0C7811B81D8DF58C00AB7682 /* LoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7811B51D8DF58C00AB7682 /* LoadingScene.cpp */; };
 		0C79D7611D85989500C21F97 /* Chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C79D75F1D85989500C21F97 /* Chain.cpp */; };
 		0C79D7621D85989600C21F97 /* Chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C79D75F1D85989500C21F97 /* Chain.cpp */; };
 		0CC3AF561D8060CF00289B1B /* pinu.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CD2F5F31D72F89600CE3900 /* pinu.png */; };
@@ -139,6 +141,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C7811B51D8DF58C00AB7682 /* LoadingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadingScene.cpp; sourceTree = "<group>"; };
+		0C7811B61D8DF58C00AB7682 /* LoadingScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LoadingScene.hpp; sourceTree = "<group>"; };
 		0C79D75F1D85989500C21F97 /* Chain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chain.cpp; sourceTree = "<group>"; };
 		0C79D7601D85989500C21F97 /* Chain.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Chain.hpp; sourceTree = "<group>"; };
 		0CC3AF581D806DCE00289B1B /* Grid */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Grid; sourceTree = "<group>"; };
@@ -381,6 +385,8 @@
 				0CCE5BC91D75C76E008D389B /* GameViewScene.hpp */,
 				0C79D75F1D85989500C21F97 /* Chain.cpp */,
 				0C79D7601D85989500C21F97 /* Chain.hpp */,
+				0C7811B51D8DF58C00AB7682 /* LoadingScene.cpp */,
+				0C7811B61D8DF58C00AB7682 /* LoadingScene.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -606,6 +612,7 @@
 				0CCE5BBE1D75C742008D389B /* Level.cpp in Sources */,
 				0CCE5BBA1D75C6E6008D389B /* Tile.cpp in Sources */,
 				0CCE5BC21D75C750008D389B /* Cookie.cpp in Sources */,
+				0C7811B71D8DF58C00AB7682 /* LoadingScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);
@@ -624,6 +631,7 @@
 				0CCE5BBB1D75C6E6008D389B /* Tile.cpp in Sources */,
 				0C79D7621D85989600C21F97 /* Chain.cpp in Sources */,
 				0CCE5BC31D75C750008D389B /* Cookie.cpp in Sources */,
+				0C7811B81D8DF58C00AB7682 /* LoadingScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,7 +14,7 @@
 class GameControllerScene : public cocos2d::Layer
 {
 public:
-    bool playMusic = false;
+    bool playMusic = true;
     Level level;
     Swap swap;
     GameViewScene *myScene;

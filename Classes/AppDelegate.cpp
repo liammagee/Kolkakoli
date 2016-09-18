@@ -1,4 +1,5 @@
 #include "AppDelegate.h"
+#include "LoadingScene.hpp"
 #include "GameControllerScene.h"
 
 USING_NS_CC;
@@ -74,10 +75,22 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = GameControllerScene::createScene();
+    loadingScene = LoadingScene::createScene();
 
     // run
-    director->runWithScene(scene);
+    director->runWithScene(loadingScene);
+
+    auto waitFor = DelayTime::create(1.3);
+    std::function<void()> doLoad = [this]() {
+        this->gameControllerScene = GameControllerScene::createScene();
+        this->gameControllerScene->retain();
+    };
+    std::function<void()> postLoad = [this]() {
+        Director::getInstance()->replaceScene(TransitionFade::create(0.5, this->gameControllerScene, Color3B(246,147,30)));
+    };
+    auto loadSeq = Sequence::create(CallFunc::create(doLoad), waitFor, CallFunc::create(postLoad), nullptr);
+    loadingScene->runAction(loadSeq);
+
 
     return true;
 }

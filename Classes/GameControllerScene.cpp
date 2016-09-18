@@ -47,7 +47,7 @@ bool GameControllerScene::init()
     btnShuffle->setPosition(Vec2(origin.x + visibleSize.width / 2,
                                 origin.y + btnShuffle->getContentSize().height / 2));
     btnShuffle->setTitleText("Shuffle");
-    btnShuffle->setTitleFontName("fonts/Marker Felt.ttf");
+    btnShuffle->setTitleFontName("fonts/MarkerFelt.ttf");
     btnShuffle->setTitleFontSize(20);
     btnShuffle->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type){
         switch (type)

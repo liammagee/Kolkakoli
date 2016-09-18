@@ -19,7 +19,7 @@ enum ChainType {
 
 class Chain {
 public:
-    std::vector< Cookie* > cookies;
+    std::vector<Cookie*> cookies;
     ChainType chainType;
     int score;
     
