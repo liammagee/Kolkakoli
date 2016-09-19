@@ -30,14 +30,14 @@ bool LoadingScene::init()
 {
     //////////////////////////////
     // 1. super init first
-    if ( !Layer::init() )
+    if ( !LayerColor::initWithColor(Color4B(255,255,255,255)) )
     {
         return false;
     }
     
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    
+
     
      auto label = Label::createWithTTF("Kolkakoli", "fonts/Marker Felt.ttf", 24);
      

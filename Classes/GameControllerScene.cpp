@@ -7,7 +7,7 @@ Scene* GameControllerScene::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::create();
-    
+
     // 'layer' is an autorelease object
     auto layer = GameControllerScene::create();
 
@@ -27,11 +27,11 @@ bool GameControllerScene::init()
     {
         return false;
     }
-    
+
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    
+
     // Add Game Over panel
     gameOverPanel = ui::ImageView::create("Images/GameOver-hd.png");
     gameOverPanel->setScaleX(visibleSize.width / gameOverPanel->getBoundingBox().size.width);
@@ -41,11 +41,42 @@ bool GameControllerScene::init()
     this->addChild(gameOverPanel, 2);
     gameOverPanel->setVisible(false);
 
+    // Add home button
+    btnHome = ui::Button::create("Images/Button-hd.png");
+    btnHome->setScaleX(0.5);
+    btnHome->setScaleY(0.5);
+    btnHome->setPosition(Vec2(origin.x + visibleSize.width / 2 - btnHome->getContentSize().width / 2,
+                              origin.y + btnHome->getContentSize().height / 2));
+    btnHome->setTitleText("Home");
+    btnHome->setTitleFontName("fonts/MarkerFelt.ttf");
+    btnHome->setTitleFontSize(20);
+    btnHome->addTouchEventListener([this](Ref* sender, ui::Widget::TouchEventType type){
+        std::function<void()> loadGame = [this]() {
+            auto levelSelectionScene = LevelSelectionScene::createScene();
+            
+            Director::getInstance()->replaceScene(TransitionFade::create(0.5, levelSelectionScene, Color3B(246,147,30)));
+        };
+        auto cb = CallFunc::create(loadGame);
+        switch (type)
+        {
+            case ui::Widget::TouchEventType::BEGAN:
+                break;
+            case ui::Widget::TouchEventType::ENDED:
+                this->runAction(cb);
+                break;
+            default:
+                break;
+        }
+    });
+    this->addChild(btnHome, 2);
+
+
+    // Add shuffle button
     btnShuffle = ui::Button::create("Images/Button-hd.png");
     btnShuffle->setScaleX(0.5);
     btnShuffle->setScaleY(0.5);
-    btnShuffle->setPosition(Vec2(origin.x + visibleSize.width / 2,
-                                origin.y + btnShuffle->getContentSize().height / 2));
+    btnShuffle->setPosition(Vec2(origin.x + visibleSize.width / 2 + btnHome->getContentSize().width / 2,
+                                 origin.y + btnShuffle->getContentSize().height / 2));
     btnShuffle->setTitleText("Shuffle");
     btnShuffle->setTitleFontName("fonts/MarkerFelt.ttf");
     btnShuffle->setTitleFontSize(20);
@@ -55,7 +86,6 @@ bool GameControllerScene::init()
             case ui::Widget::TouchEventType::BEGAN:
                 break;
             case ui::Widget::TouchEventType::ENDED:
-                std::cout << "Button 1 clicked" << std::endl;
                 this->shuffle();
                 this->decrementMoves();
                 break;
@@ -64,16 +94,16 @@ bool GameControllerScene::init()
         }
     });
     this->addChild(btnShuffle, 2);
-    
-    // Add Level
-    auto level = Level::initWithFile("Grid/Level_1.json");
 
-    
+    // Add Level
+    std::string levelFile = "Grid/Level_" + StringUtils::toString(LevelSelectionScene::level) + ".json";
+    auto level = Level::initWithFile(levelFile);
+
     // Initialise actual swap scene
     myScene = GameViewScene::create();
     myScene->level = level;
     myScene->addTiles();
-    
+
     std::function<void(Swap*)> block = [this](Swap* swap) {
         Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this->myScene);
         if (this->myScene->level->isPossibleSwap(swap)) {
@@ -89,22 +119,20 @@ bool GameControllerScene::init()
             Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this->myScene);
         }
     };
-    
+
     myScene->swapHandler = block;
-    
+
     this->beginGame();
     this->addChild(myScene);
-    
+
     // Play music
     if (this->playMusic) {
         CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
                                                                              "Sounds/Mining by Moonlight.mp3", true);
     }
 
-    
     return true;
 }
-
 void GameControllerScene::beginNextTurn() {
     myScene->level->detectPossibleSwaps();
     Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
@@ -156,13 +184,13 @@ void GameControllerScene::menuCloseCallback(Ref* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
-    
+
     /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() and exit(0) as given above,instead trigger a custom event created in RootViewController.mm as below*/
-    
+
     //EventCustom customEndEvent("game_scene_close_event");
     //_eventDispatcher->dispatchEvent(&customEndEvent);
-    
-    
+
+
 }
 
 void GameControllerScene::decrementMoves() {
@@ -170,31 +198,47 @@ void GameControllerScene::decrementMoves() {
     myScene->updateLabels();
     if (myScene->score >= myScene->level->targetScore) {
         gameOverPanel->loadTexture("Images/LevelComplete-hd.png");
-        showGameOver();
+        LevelSelectionScene::level++;
+        showGameOver(false);
     }
     else if (myScene->movesLeft <= 0) {
         gameOverPanel->loadTexture("Images/GameOver-hd.png");
-        showGameOver();
+        showGameOver(true);
     }
 }
 
-void GameControllerScene::showGameOver() {
+void GameControllerScene::showGameOver(bool restart) {
     myScene->animateGameOver();
     gameOverPanel->setVisible(true);
     btnShuffle->setVisible(false);
     Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this->myScene);
-    
+
     //Create a "one by one" touch event listener (processes one touch at a time)
     gameOverListener = EventListenerTouchOneByOne::create();
     // When "swallow touches" is true, then returning 'true' from the onTouchBegan method will "swallow" the touch event, preventing other listeners from using it.
     gameOverListener->setSwallowTouches(true);
-    
-    // Example of using a lambda expression to implement onTouchBegan event callback function
-    gameOverListener->onTouchBegan = [this](Touch* touch, Event* event){
-        this->hideGameOver();
-        return false;
-    };
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(gameOverListener, gameOverPanel);
+
+    if (restart) {
+        // Example of using a lambda expression to implement onTouchBegan event callback function
+        gameOverListener->onTouchBegan = [this](Touch* touch, Event* event){
+            this->hideGameOver();
+            return false;
+        };
+        _eventDispatcher->addEventListenerWithSceneGraphPriority(gameOverListener, gameOverPanel);
+    }
+    else {
+        gameOverListener->onTouchBegan = [this](Touch* touch, Event* event){
+            std::function<void()> loadGame = [this]() {
+                auto gameControllerScene = GameControllerScene::createScene();
+                
+                Director::getInstance()->replaceScene(TransitionFade::create(0.5, gameControllerScene, Color3B(246,147,30)));
+            };
+            auto cb = CallFunc::create(loadGame);
+            this->runAction(cb);
+            return false;
+        };
+        _eventDispatcher->addEventListenerWithSceneGraphPriority(gameOverListener, gameOverPanel);
+    }
 }
 void GameControllerScene::hideGameOver() {
     _eventDispatcher->removeEventListener(gameOverListener);

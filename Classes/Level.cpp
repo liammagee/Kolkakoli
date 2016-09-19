@@ -185,7 +185,7 @@ void Level::loadJSON(const std::string& filename, Level *level) {
 }
 
 Level* Level::initWithFile(const std::string& filename) {
-    Level *level = new Level::Level;
+    Level *level = new Level;
     loadJSON(filename, level);
     
     return level;

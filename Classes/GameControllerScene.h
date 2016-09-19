@@ -1,6 +1,7 @@
 #ifndef __HELLOWORLD_SCENE_H__
 #define __HELLOWORLD_SCENE_H__
 
+#include <iostream>
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "SimpleAudioEngine.h"
@@ -9,6 +10,8 @@
 #include "Swap.hpp"
 #include "Cookie.hpp"
 #include "GameViewScene.hpp"
+#include "LevelSelectionScene.hpp"
+#include "LevelNumber.hpp"
 
 
 class GameControllerScene : public cocos2d::Layer
@@ -20,11 +23,10 @@ public:
     GameViewScene *myScene;
 
     cocos2d::ui::ImageView* gameOverPanel;
+    cocos2d::ui::Button* btnHome;
     cocos2d::ui::Button* btnShuffle;
     cocos2d::EventListenerTouchOneByOne* gameOverListener;
     
-    
-
     static cocos2d::Scene* createScene();
 
     virtual bool init();
@@ -44,7 +46,7 @@ public:
     void handleMatches();
     void beginNextTurn();
     void decrementMoves();
-    void showGameOver();
+    void showGameOver(bool restart);
     void hideGameOver();
 };
 

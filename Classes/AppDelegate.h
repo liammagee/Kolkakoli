@@ -13,6 +13,7 @@ class  AppDelegate : private cocos2d::Application
 {
 public:
     cocos2d::Scene* loadingScene;
+    cocos2d::Scene* levelSelectionScene;
     cocos2d::Scene* gameControllerScene;
     AppDelegate();
     virtual ~AppDelegate();

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		0C7811B71D8DF58C00AB7682 /* LoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7811B51D8DF58C00AB7682 /* LoadingScene.cpp */; };
 		0C7811B81D8DF58C00AB7682 /* LoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7811B51D8DF58C00AB7682 /* LoadingScene.cpp */; };
+		0C7811BC1D8EE95100AB7682 /* LevelSelectionScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7811BA1D8EE95100AB7682 /* LevelSelectionScene.cpp */; };
+		0C7811BD1D8EE95100AB7682 /* LevelSelectionScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7811BA1D8EE95100AB7682 /* LevelSelectionScene.cpp */; };
+		0C7811C11D8F350B00AB7682 /* LevelNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7811BF1D8F350B00AB7682 /* LevelNumber.cpp */; };
+		0C7811C21D8F350B00AB7682 /* LevelNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7811BF1D8F350B00AB7682 /* LevelNumber.cpp */; };
 		0C79D7611D85989500C21F97 /* Chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C79D75F1D85989500C21F97 /* Chain.cpp */; };
 		0C79D7621D85989600C21F97 /* Chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C79D75F1D85989500C21F97 /* Chain.cpp */; };
 		0CC3AF561D8060CF00289B1B /* pinu.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CD2F5F31D72F89600CE3900 /* pinu.png */; };
@@ -143,6 +147,10 @@
 /* Begin PBXFileReference section */
 		0C7811B51D8DF58C00AB7682 /* LoadingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadingScene.cpp; sourceTree = "<group>"; };
 		0C7811B61D8DF58C00AB7682 /* LoadingScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LoadingScene.hpp; sourceTree = "<group>"; };
+		0C7811BA1D8EE95100AB7682 /* LevelSelectionScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelSelectionScene.cpp; sourceTree = "<group>"; };
+		0C7811BB1D8EE95100AB7682 /* LevelSelectionScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LevelSelectionScene.hpp; sourceTree = "<group>"; };
+		0C7811BF1D8F350B00AB7682 /* LevelNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelNumber.cpp; sourceTree = "<group>"; };
+		0C7811C01D8F350B00AB7682 /* LevelNumber.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LevelNumber.hpp; sourceTree = "<group>"; };
 		0C79D75F1D85989500C21F97 /* Chain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chain.cpp; sourceTree = "<group>"; };
 		0C79D7601D85989500C21F97 /* Chain.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Chain.hpp; sourceTree = "<group>"; };
 		0CC3AF581D806DCE00289B1B /* Grid */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Grid; sourceTree = "<group>"; };
@@ -387,6 +395,10 @@
 				0C79D7601D85989500C21F97 /* Chain.hpp */,
 				0C7811B51D8DF58C00AB7682 /* LoadingScene.cpp */,
 				0C7811B61D8DF58C00AB7682 /* LoadingScene.hpp */,
+				0C7811BA1D8EE95100AB7682 /* LevelSelectionScene.cpp */,
+				0C7811BB1D8EE95100AB7682 /* LevelSelectionScene.hpp */,
+				0C7811BF1D8F350B00AB7682 /* LevelNumber.cpp */,
+				0C7811C01D8F350B00AB7682 /* LevelNumber.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -608,6 +620,8 @@
 				0C79D7611D85989500C21F97 /* Chain.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* GameControllerScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				0C7811C11D8F350B00AB7682 /* LevelNumber.cpp in Sources */,
+				0C7811BC1D8EE95100AB7682 /* LevelSelectionScene.cpp in Sources */,
 				0CCE5BCA1D75C76E008D389B /* GameViewScene.cpp in Sources */,
 				0CCE5BBE1D75C742008D389B /* Level.cpp in Sources */,
 				0CCE5BBA1D75C6E6008D389B /* Tile.cpp in Sources */,
@@ -623,6 +637,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CCE5BCB1D75C76E008D389B /* GameViewScene.cpp in Sources */,
+				0C7811C21D8F350B00AB7682 /* LevelNumber.cpp in Sources */,
+				0C7811BD1D8EE95100AB7682 /* LevelSelectionScene.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				0CCE5BBF1D75C742008D389B /* Level.cpp in Sources */,
 				0CCE5BC71D75C761008D389B /* Swap.cpp in Sources */,

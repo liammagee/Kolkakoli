@@ -14,7 +14,7 @@
 
 
 
-class LoadingScene : public cocos2d::Layer
+class LoadingScene : public cocos2d::LayerColor
 {
 public:
     

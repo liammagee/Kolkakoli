@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "LoadingScene.hpp"
+#include "LevelSelectionScene.hpp"
 #include "GameControllerScene.h"
 
 USING_NS_CC;
@@ -82,13 +83,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     auto waitFor = DelayTime::create(1.3);
     std::function<void()> doLoad = [this]() {
-        this->gameControllerScene = GameControllerScene::createScene();
-        this->gameControllerScene->retain();
+        this->levelSelectionScene = LevelSelectionScene::createScene();
+        Director::getInstance()->replaceScene(TransitionFade::create(0.5, this->levelSelectionScene, Color3B(246,147,30)));
     };
-    std::function<void()> postLoad = [this]() {
-        Director::getInstance()->replaceScene(TransitionFade::create(0.5, this->gameControllerScene, Color3B(246,147,30)));
-    };
-    auto loadSeq = Sequence::create(CallFunc::create(doLoad), waitFor, CallFunc::create(postLoad), nullptr);
+    auto loadSeq = Sequence::create(waitFor, CallFunc::create(doLoad), nullptr);
     loadingScene->runAction(loadSeq);
 
 
